@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+
+  --color-primary-bg: #F8FBF9;
+  --color-secondary-surface: #FFFFFF;
+  --color-earth-dark: #1B2624;
+  
+  --color-soft-glow: #FFFDEE;
+  --color-vibrant-lime: #E3EF26;
+  --color-fresh-mint: #E2FBCE;
+  --color-forest-green: #076653;
+  --color-deep-canopy: #0C342C;
+  --color-midnight-green: #06231D;
+  
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #475569;
+}
+
+@layer utilities {
+  .bg-gradient-1 {
+    background-image: linear-gradient(to bottom, var(--color-soft-glow), var(--color-vibrant-lime));
+  }
+  .bg-gradient-2 {
+    background-image: linear-gradient(to bottom, var(--color-fresh-mint), var(--color-vibrant-lime) 50%, var(--color-forest-green));
+  }
+  .bg-gradient-3 {
+    background-image: linear-gradient(to bottom, var(--color-vibrant-lime), var(--color-forest-green) 50%, var(--color-deep-canopy));
+  }
+  .bg-gradient-4 {
+    background-image: linear-gradient(to bottom, var(--color-forest-green), var(--color-deep-canopy) 50%, var(--color-midnight-green));
+  }
+  .glassmorphism {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+  }
+}
+
+body {
+  background-color: var(--color-primary-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-display);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.05); /* Soft inner glow instead of thick blur */
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4),
+    transparent,
+    rgba(255, 255, 255, 0.05)
+  );
+}
