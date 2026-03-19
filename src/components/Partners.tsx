@@ -54,6 +54,7 @@ export const Partners = () => {
                 <img
                   src={partner.logo}
                   alt={partner.name}
+                  loading="lazy"
                   className="w-full h-full object-contain mix-blend-multiply grayscale group-hover:grayscale-0 transition-all duration-500 scale-95 group-hover:scale-105"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';

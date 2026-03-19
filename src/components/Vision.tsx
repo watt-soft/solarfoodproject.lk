@@ -244,6 +244,7 @@ const VisionCard = ({ item, index }: { item: VisionItem; index: number }) => {
         <img
           src={item.image}
           alt={item.title}
+          loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 relative z-0"
         />
         <div className="absolute inset-0 bg-gradient-to-tr from-[#1A6B3C]/40 to-transparent mix-blend-multiply transition-opacity opacity-40 group-hover:opacity-20 z-10" />
