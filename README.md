@@ -4,7 +4,7 @@ A modern investor-facing website for the **Solar Food Project** — a 7-acre agr
 
 ## 🔗 Live Site
 
-[https://watt-soft.github.io/solarfoodproject.lk/](https://watt-soft.github.io/solarfoodproject.lk/)
+
 
 ## ⚡ Tech Stack
 
