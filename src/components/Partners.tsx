@@ -48,9 +48,9 @@ export const Partners = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="flex flex-col items-center text-center p-6 sm:p-8 bg-[#f9fafb] rounded-[22px] border border-earth-dark/5 shadow-sm hover:shadow-[0_12px_44px_rgba(26,107,60,0.12)] transition-all duration-300 group hover:border-[#1A6B3C]/20 hover:bg-white"
+              className={`flex flex-col items-center text-center p-6 sm:p-8 bg-[#f9fafb] rounded-[22px] border border-earth-dark/5 shadow-sm transition-all duration-300 group hover:bg-white ${partner.style.shadow} ${partner.style.borderMain}`}
             >
-              <div className="w-[110px] h-[110px] sm:w-[124px] sm:h-[124px] mb-6 bg-white rounded-[20px] flex items-center justify-center p-4 border border-slate-100 group-hover:border-[#22C55E]/40 transition-colors shadow-sm overflow-hidden ring-4 ring-white">
+              <div className={`w-[110px] h-[110px] sm:w-[124px] sm:h-[124px] mb-6 bg-white rounded-[20px] flex items-center justify-center p-4 border border-slate-100 transition-colors shadow-sm overflow-hidden ring-4 ring-white ${partner.style.borderLogo}`}>
                 <img
                   src={partner.logo}
                   alt={partner.name}
@@ -65,7 +65,7 @@ export const Partners = () => {
                   }}
                 />
               </div>
-              <h3 className="font-display font-bold text-[16px] sm:text-[18px] leading-snug text-slate-900 group-hover:text-[#1A6B3C] transition-colors">{partner.name}</h3>
+              <h3 className={`font-display font-bold text-[16px] sm:text-[18px] leading-snug text-slate-900 transition-colors ${partner.style.text}`}>{partner.name}</h3>
               <p className="text-[12px] sm:text-[13px] text-slate-500 mt-2.5 leading-relaxed font-medium">{partner.role}</p>
             </motion.a>
           ))}
