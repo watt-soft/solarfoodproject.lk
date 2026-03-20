@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { FiMenu, FiX } from 'react-icons/fi';
-import logo from '../assets/logos/solar-food-project.png';
+import logo from '../assets/logos/solar-food-project.webp';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);

@@ -33,7 +33,7 @@ export const Hero = () => {
       {/* Background Image */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}hero-background.jpg')` }}
+        style={{ backgroundImage: `url('${import.meta.env.BASE_URL}hero-background.webp')` }}
       />
 
       {/* Overlay */}

@@ -1,9 +1,9 @@
 import type { VisionItem } from '../types';
 
-import dehydrationImg from '../assets/vision/dehydration.jpeg';
-import mushroomImg from '../assets/vision/mushroom.jpeg';
-import factoryImg from '../assets/vision/factory.jpeg';
-import solarImg from '../assets/vision/solar.jpeg';
+import dehydrationImg from '../assets/vision/dehydration.webp';
+import mushroomImg from '../assets/vision/mushroom.webp';
+import factoryImg from '../assets/vision/factory.webp';
+import solarImg from '../assets/vision/solar.webp';
 
 export const visionItems: VisionItem[] = [
   {
