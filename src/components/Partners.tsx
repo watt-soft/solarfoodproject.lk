@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { partners } from '../data/partnerData';
 
 export const Partners = () => {
+  const { t } = useTranslation();
   return (
     <section id="stakeholders" className="py-24 bg-white border-y border-earth-dark/5 overflow-hidden scroll-mt-28">
       <div className="max-w-7xl mx-auto px-6">
@@ -16,17 +18,17 @@ export const Partners = () => {
           <div className="mb-5 flex justify-center">
             <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-emerald-700 bg-[#f0fdf4] border border-emerald-200 shadow-sm px-4 py-2 rounded-full">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
-              STAKEHOLDERS
+              {t('partners.badge')}
             </span>
           </div>
           
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 mb-5 leading-[1.08] tracking-tight">
-            Our Stakeholders & <br className="hidden sm:block" />
-            <span className="text-[#1A6B3C]">Strategic Partners</span>
+            {t('partners.title1')} <br className="hidden sm:block" />
+            <span className="text-[#1A6B3C]">{t('partners.titleHighlight')}</span>
           </h2>
           
           <p className="text-lg text-slate-500 leading-relaxed max-w-3xl mx-auto drop-shadow-sm">
-            At the Solar Food Project, our mission is to redefine the intersection of technology and nature — pioneering a new era of investment where green energy and sustainable agrotechnology are completely vertically integrated. From seed to solar canopy to final consumer product, we ensure total food safety and unparalleled operational efficiency. By investing in our ecosystem, you are funding a blueprint for the future of global food security.
+            {t('partners.subtitle')}
           </p>
         </motion.div>
 
@@ -66,7 +68,7 @@ export const Partners = () => {
                 />
               </div>
               <h3 className={`font-display font-bold text-[16px] sm:text-[18px] leading-snug text-slate-900 transition-colors ${partner.style.text}`}>{partner.name}</h3>
-              <p className="text-[12px] sm:text-[13px] text-slate-500 mt-2.5 leading-relaxed font-medium">{partner.role}</p>
+              <p className="text-[12px] sm:text-[13px] text-slate-500 mt-2.5 leading-relaxed font-medium">{t(`partners.roles.${partner.id}`)}</p>
             </motion.a>
           ))}
         </motion.div>

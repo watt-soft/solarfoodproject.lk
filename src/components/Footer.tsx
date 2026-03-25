@@ -1,4 +1,5 @@
-import { FiLinkedin, FiMail, FiArrowUpRight } from 'react-icons/fi';
+import { FiMail, FiArrowUpRight, FiArrowUp } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 
 const quickLinks = [
   { label: 'Home', id: 'home' },
@@ -9,6 +10,7 @@ const quickLinks = [
 ];
 
 export const Footer = () => {
+  const { t } = useTranslation();
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -24,14 +26,13 @@ export const Footer = () => {
               Solar Food<span className="text-vibrant-lime ml-1">Project</span>
             </div>
             <p className="text-sm text-white/60 leading-relaxed max-w-xs">
-              Pioneering the future of sustainable agrotechnology through
-              vertically integrated green energy and premium food production.
+              {t('footer.desc')}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-widest text-white/40 mb-5">Quick Links</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-widest text-white/40 mb-5">{t('footer.quickLinks')}</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.id}>
@@ -40,7 +41,7 @@ export const Footer = () => {
                     onClick={(e) => scrollTo(e, link.id)}
                     className="text-sm text-white/70 hover:text-vibrant-lime transition-colors flex items-center gap-1 group"
                   >
-                    {link.label}
+                    {t(`navbar.${link.id}`)}
                     <FiArrowUpRight className="opacity-0 group-hover:opacity-100 transition-opacity text-xs" />
                   </a>
                 </li>
@@ -50,32 +51,35 @@ export const Footer = () => {
 
           {/* Connect */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-widest text-white/40 mb-5">Connect With Us</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-widest text-white/40 mb-5">{t('footer.connect')}</h4>
             <div className="flex gap-4 mb-6">
+             
               <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-vibrant-lime hover:text-earth-dark transition-colors"
-              >
-                <FiLinkedin size={18} />
-              </a>
-              <a
-                href="mailto:investors@solarfoodproject.com"
+                href="mailto:info@solarfoodproject.lk"
                 aria-label="Send email"
                 className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-vibrant-lime hover:text-earth-dark transition-colors"
               >
                 <FiMail size={18} />
               </a>
             </div>
-            <p className="text-sm text-white/50">investors@solarfoodproject.com</p>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 text-center text-xs text-white/30">
-          © {new Date().getFullYear()} Solar Food Project. All rights reserved.
+        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/30">
+          <div>
+            © {new Date().getFullYear()} {t('footer.rights')}
+          </div>
+          
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="group flex items-center gap-3 bg-white/5 hover:bg-vibrant-lime text-white/70 hover:text-earth-dark border border-white/10 hover:border-vibrant-lime transition-all duration-300 px-4 py-2 rounded-full"
+          >
+            <span className="font-bold tracking-[0.15em] uppercase text-[10px]">{t('footer.backToTop')}</span>
+            <div className="w-6 h-6 rounded-full bg-white/10 group-hover:bg-earth-dark/10 flex items-center justify-center transition-colors">
+              <FiArrowUp size={12} strokeWidth={3} />
+            </div>
+          </button>
         </div>
       </div>
     </footer>

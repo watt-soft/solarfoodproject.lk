@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FiMenu, FiX } from 'react-icons/fi';
 import logo from '../assets/logos/solar-food-project.webp';
 
@@ -21,12 +22,14 @@ export const Header = () => {
     }
   };
 
+  const { t } = useTranslation();
+
   const navLinks = [
-    { label: 'Home', id: 'home' },
-    { label: 'The Vision', id: 'vision' },
-    { label: 'Transparency', id: 'transparency' },
-    { label: 'Stakeholders', id: 'stakeholders' },
-    { label: 'Contact', id: 'contact' },
+    { label: t('navbar.home'), id: 'home' },
+    { label: t('navbar.vision'), id: 'vision' },
+    { label: t('navbar.transparency'), id: 'transparency' },
+    { label: t('navbar.stakeholders'), id: 'stakeholders' },
+    { label: t('navbar.contact'), id: 'contact' },
   ];
 
   return (
@@ -71,13 +74,13 @@ export const Header = () => {
           </button>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-8">
+          <nav className="hidden lg:flex flex-1 justify-center items-center gap-4 lg:gap-5 xl:gap-8 px-2">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => scrollToAction(e, link.id)}
-                className="text-sm font-medium text-earth-dark/70 hover:text-earth-dark transition-colors"
+                className="text-sm font-medium text-earth-dark/70 hover:text-earth-dark transition-colors whitespace-nowrap"
               >
                 {link.label}
               </a>
@@ -85,19 +88,19 @@ export const Header = () => {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:block relative z-10">
+          <div className="hidden lg:flex items-center gap-4 relative z-10">
             <motion.a
               href="#contact"
               onClick={(e) => scrollToAction(e, 'contact')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-lg transition-all text-sm inline-block ${
+              className={`px-5 py-3 xl:px-6 rounded-full font-semibold shadow-md hover:shadow-lg transition-all text-sm inline-block whitespace-nowrap shrink-0 ${
                 isScrolled 
                   ? 'bg-earth-dark text-white hover:bg-forest-green' 
                   : 'bg-earth-dark text-white hover:bg-forest-green'
               }`}
             >
-              Invest in the Future
+              {t('navbar.cta')}
             </motion.a>
           </div>
         </div>
@@ -122,9 +125,9 @@ export const Header = () => {
             <a
               href="#contact"
               onClick={(e) => scrollToAction(e, 'contact')}
-              className="mt-4 text-center px-4 py-3.5 rounded-xl bg-earth-dark text-white font-semibold shadow-md"
+              className="mt-2 text-center px-4 py-3.5 rounded-xl bg-earth-dark text-white font-semibold shadow-md"
             >
-              Invest in the Future
+              {t('navbar.cta')}
             </a>
           </motion.div>
         )}

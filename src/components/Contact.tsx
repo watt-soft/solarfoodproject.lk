@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { FiPhone, FiMail, FiMapPin, FiClock, FiSend, FiCheck, FiAlertCircle } from 'react-icons/fi';
 
 // ✅ Your real Google Apps Script Web App URL
@@ -8,18 +9,19 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzsm0a7IJZQacDF
 const GOOGLE_MAPS_SRC =
   'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d796.9341572439677!2d80.49459754622079!3d8.531578671210093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOMKwMzEnNTIuNiJOIDgwwrAyOSc0MC43IkU!5e1!3m2!1sen!2slk!4v1773731257117!5m2!1sen!2slk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
 
-const contactCards = [
-  { icon: FiPhone, label: 'Phone', value: '+94 76 779 6422', href: 'tel:+94767796422' },
-  { icon: FiMail, label: 'Email', value: 'investors@solarfoodproject.com', href: 'mailto:investors@solarfoodproject.com' },
-  { icon: FiMapPin, label: 'Address', value: 'Medawachchiya, Sri Lanka', href: undefined },
-  { icon: FiClock, label: 'Business Hours', value: 'Mon – Fri, 9 AM – 5 PM', href: undefined },
-];
-
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
 export const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<Status>('idle');
+  const { t } = useTranslation();
+
+  const contactCards = [
+    { icon: FiPhone, label: t('contact.cards.phone'), value: '+94 76 779 6422', href: 'tel:+94767796422' },
+    { icon: FiMail, label: t('contact.cards.email'), value: 'info@solarfoodproject.lk', href: 'mailto:info@solarfoodproject.lk' },
+    { icon: FiMapPin, label: t('contact.cards.address'), value: t('contact.cards.addressValue'), href: undefined },
+    { icon: FiClock, label: t('contact.cards.hours'), value: t('contact.cards.hoursValue'), href: undefined },
+  ];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,14 +76,14 @@ export const Contact = () => {
           <div className="mb-5 flex justify-center">
             <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-emerald-700 bg-emerald-50 border border-emerald-200 shadow-sm px-4 py-2 rounded-full">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
-              CONTACT US
+              {t('contact.badge')}
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-earth-dark mb-4">
-            Partner With the <span className="text-[#1A6B3C]">Future</span>
+            {t('contact.title1')} <span className="text-[#1A6B3C]">{t('contact.titleHighlight')}</span>
           </h2>
           <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-            Get in touch with our executive team for investment opportunities and technical deep dives.
+            {t('contact.subtitle')}
           </p>
         </motion.div>
 
@@ -137,34 +139,34 @@ export const Contact = () => {
             viewport={{ once: true }}
           >
             <div className="bg-white p-8 lg:p-10 rounded-[2rem] border border-earth-dark/5 shadow-sm h-full flex flex-col">
-              <h3 className="text-2xl font-display font-semibold text-earth-dark mb-6">Send us a Message</h3>
+              <h3 className="text-2xl font-display font-semibold text-earth-dark mb-6">{t('contact.form.title')}</h3>
 
               <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-5 flex-1">
 
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-text-secondary mb-1.5">Full Name</label>
-                  <input id="name" name="name" type="text" required placeholder="John Doe"
+                  <label htmlFor="name" className="block text-sm font-medium text-text-secondary mb-1.5">{t('contact.form.nameLabel')}</label>
+                  <input id="name" name="name" type="text" required placeholder={t('contact.form.namePlaceholder')}
                     className="w-full px-4 py-3 rounded-xl border border-fresh-mint bg-secondary-surface focus:border-forest-green focus:ring-2 focus:ring-forest-green/15 outline-none transition-all text-text-primary placeholder:text-text-secondary/40"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-text-secondary mb-1.5">Email Address</label>
-                  <input id="email" name="email" type="email" required placeholder="john@company.com"
+                  <label htmlFor="email" className="block text-sm font-medium text-text-secondary mb-1.5">{t('contact.form.emailLabel')}</label>
+                  <input id="email" name="email" type="email" required placeholder={t('contact.form.emailPlaceholder')}
                     className="w-full px-4 py-3 rounded-xl border border-fresh-mint bg-secondary-surface focus:border-forest-green focus:ring-2 focus:ring-forest-green/15 outline-none transition-all text-text-primary placeholder:text-text-secondary/40"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-text-secondary mb-1.5">Phone Number</label>
-                  <input id="phone" name="phone" type="tel" placeholder="+94 77 000 0000"
+                  <label htmlFor="phone" className="block text-sm font-medium text-text-secondary mb-1.5">{t('contact.form.phoneLabel')}</label>
+                  <input id="phone" name="phone" type="tel" placeholder={t('contact.form.phonePlaceholder')}
                     className="w-full px-4 py-3 rounded-xl border border-fresh-mint bg-secondary-surface focus:border-forest-green focus:ring-2 focus:ring-forest-green/15 outline-none transition-all text-text-primary placeholder:text-text-secondary/40"
                   />
                 </div>
 
                 <div className="flex-1">
-                  <label htmlFor="message" className="block text-sm font-medium text-text-secondary mb-1.5">Message</label>
-                  <textarea id="message" name="message" rows={5} required placeholder="Tell us about your investment interest…"
+                  <label htmlFor="message" className="block text-sm font-medium text-text-secondary mb-1.5">{t('contact.form.messageLabel')}</label>
+                  <textarea id="message" name="message" rows={5} required placeholder={t('contact.form.messagePlaceholder')}
                     className="w-full px-4 py-3 rounded-xl border border-fresh-mint bg-secondary-surface focus:border-forest-green focus:ring-2 focus:ring-forest-green/15 outline-none transition-all text-text-primary placeholder:text-text-secondary/40 resize-none"
                   />
                 </div>
@@ -174,14 +176,14 @@ export const Contact = () => {
                   <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
                     className="flex items-center gap-2 text-sm font-medium text-green-700 bg-green-50 border border-green-200 px-4 py-3 rounded-xl"
                   >
-                    <FiCheck size={16} /> Message sent! We'll get back to you soon.
+                    <FiCheck size={16} /> {t('contact.form.success')}
                   </motion.div>
                 )}
                 {status === 'error' && (
                   <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
                     className="flex items-center gap-2 text-sm font-medium text-red-700 bg-red-50 border border-red-200 px-4 py-3 rounded-xl"
                   >
-                    <FiAlertCircle size={16} /> Please fill in all required fields and try again.
+                    <FiAlertCircle size={16} /> {t('contact.form.error')}
                   </motion.div>
                 )}
 
@@ -195,7 +197,7 @@ export const Contact = () => {
                 >
                   {status === 'loading' ? (
                     <>
-                      Sending…
+                      {t('contact.form.sending')}
                       <span className="w-10 h-10 bg-earth-dark text-white rounded-full flex items-center justify-center shrink-0">
                         <svg className="animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none">
                           <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeOpacity="0.25" />
@@ -205,7 +207,7 @@ export const Contact = () => {
                     </>
                   ) : (
                     <>
-                      Send Message
+                      {t('contact.form.sendMsg')}
                       <span className="w-10 h-10 bg-earth-dark text-white rounded-full group-hover:bg-forest-green transition-colors flex items-center justify-center shrink-0">
                         <FiSend size={18} className="-ml-0.5" />
                       </span>

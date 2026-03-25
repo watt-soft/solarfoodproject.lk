@@ -5,10 +5,12 @@ import { Milestones } from './components/Milestones';
 import { Partners } from './components/Partners';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { LanguageSwitcher } from './components/LanguageSwitcher';
 
 function App() {
   return (
     <div className="min-h-screen bg-primary-bg">
+      <LanguageSwitcher />
       <Header />
       <main>
         <Hero />

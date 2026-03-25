@@ -1,11 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
-
-const stats = [
-  { value: '7.0+', label: 'Strategic Acres' },
-  { value: '100%', label: 'Agrivoltaic Solar Ecosystem' },
-  { value: 'Zero-Waste', label: 'Vertical Integration' },
-];
+import { useTranslation } from 'react-i18next';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -25,6 +20,14 @@ const itemVariants = {
 };
 
 export const Hero = () => {
+  const { t } = useTranslation();
+
+  const stats = [
+    { value: t('hero.stat1Value'), label: t('hero.stat1Label') },
+    { value: t('hero.stat2Value'), label: t('hero.stat2Label') },
+    { value: t('hero.stat3Value'), label: t('hero.stat3Label') },
+  ];
+
   return (
     <section
       id="home"
@@ -56,9 +59,8 @@ export const Hero = () => {
             variants={itemVariants}
             className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-white leading-[1.1] tracking-tight mb-4 lg:mb-4 drop-shadow-lg"
           >
-            Investing in a Brighter Future with{' '}
-            <span className="text-vibrant-lime drop-shadow-md">Solar Energy</span>{' '}
-            and Sustainable Agriculture
+            {t('hero.title1')}
+            <span className="text-vibrant-lime drop-shadow-md">{t('hero.titleHighlight')}</span>
           </motion.h1>
 
           {/* Subtitle — reduced from text-xl/2xl to text-base/lg */}
@@ -66,8 +68,7 @@ export const Hero = () => {
             variants={itemVariants}
             className="text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed mb-6 max-w-2xl mx-auto drop-shadow"
           >
-            7-Acres of Zero-Waste Innovation. Integrating Green Energy,
-            Premium Food Production, and Food Safety.
+            {t('hero.subtitle')}
           </motion.p>
 
           {/* CTA */}
@@ -78,7 +79,7 @@ export const Hero = () => {
               whileTap={{ scale: 0.95 }}
               className="px-6 py-3 lg:px-7 lg:py-3.5 rounded-full bg-vibrant-lime text-earth-dark font-display font-bold text-sm lg:text-base shadow-[0_8px_32px_rgba(227,239,38,0.4)] hover:shadow-[0_12px_40px_rgba(227,239,38,0.5)] transition-all flex items-center gap-2 lg:gap-3 group"
             >
-              Get Started
+              {t('hero.cta')}
               <span className="bg-earth-dark text-white p-1.5 rounded-full group-hover:bg-forest-green transition-colors">
                 <FiArrowRight size={16} className="lg:w-[18px] lg:h-[18px]" />
               </span>

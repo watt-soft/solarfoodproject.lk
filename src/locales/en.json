@@ -1,0 +1,190 @@
+{
+  "navbar": {
+    "home": "Home",
+    "vision": "The Vision",
+    "transparency": "Transparency",
+    "stakeholders": "Our Stakeholders",
+    "contact": "Contact",
+    "cta": "Invest in the Future"
+  },
+  "hero": {
+    "title1": "Investing in a Brighter Future with Solar Energy and ",
+    "titleHighlight": "Sustainable Agriculture",
+    "subtitle": "7-Acres of Zero-Waste Innovation. Integrating Green Energy, Premium Food Production, and Food Safety.",
+    "cta": "Get Started",
+    "stat1Value": "7.0+",
+    "stat1Label": "Strategic Acres",
+    "stat2Value": "100%",
+    "stat2Label": "Agrivoltaic Solar Ecosystem",
+    "stat3Value": "Zero-Waste",
+    "stat3Label": "Vertical Integration"
+  },
+  "vision": {
+    "badge": "A 7-Acre Blueprint",
+    "title1": "The Master ",
+    "titleHighlight": "Plan",
+    "subtitle": "A structurally integrated ecosystem delivering end-to-end agricultural production, from cultivation to final product, powered by renewable energy.",
+    "overview": {
+      "integration": {
+        "title": "Vertical Integration (The Factory)",
+        "desc": "End-to-end pipeline from raw harvest to premium market-ready goods."
+      },
+      "solar": {
+        "title": "Agrisolar / Agrivoltaics",
+        "desc": "Dual-use solar greenhouses powering the full 7-acre complex while growing crops below."
+      },
+      "dehydration": {
+        "title": "Multilevel Dehydration Complex",
+        "desc": "Heavy-duty facility for maximum shelf-life, nutrient retention and zero-emission processing."
+      },
+      "battery": {
+        "title": "Solar Battery Backup System",
+        "desc": "Store energy and fuel the national grid at night when demand is high."
+      }
+    },
+    "items": {
+      "integration": {
+        "title": "Vertical Integration (The Factory)",
+        "description": "Our end-to-end production pipeline transforming raw harvests into premium, market-ready goods.",
+        "bullets": [
+          "On-site processing facility minimizing logistical carbon footprint.",
+          "Creation of high-value secondary products.",
+          "Strict food-safety and sterilization protocols.",
+          "Packaging and distribution centre."
+        ]
+      },
+      "solar": {
+        "title": "Agrisolar / Agrivoltaics",
+        "description": "The crown jewel of our land strategy — dual-use infrastructure capturing the sun from above while growing life below.",
+        "bullets": [
+          "4 acres of high-efficiency solar greenhouses.",
+          "2 acres are allocated for mushroom cultivation, while the remaining 2 acres will be decided based on project requirements.",
+          "Simultaneous clean energy generation and crop cultivation.",
+          "Powering the entire 7-acre dehydration and factory complex.",
+          "Demonstrating the pinnacle of modern ecological sustainability."
+        ]
+      },
+      "dehydration": {
+        "title": "Multilevel Dehydration Complex",
+        "description": "A specialized, heavy-duty facility engineered for maximum shelf-life and nutrient retention.",
+        "bullets": [
+          "Large-scale dehydration of medicinal herbs (Karapincha, Murunga).",
+          "Processing of seasonal fruits, vegetables, and grains.",
+          "State-of-the-art moisture extraction technology.",
+          "Ensuring year-round food security and export-quality supply.",
+          "Zero-emission operation powered by our solar grid."
+        ]
+      }
+    }
+  },
+  "milestones": {
+    "badge": "Investor Transparency",
+    "title1": "Phased Implementation ",
+    "titleHighlight": "Strategy",
+    "subtitle": "A structured three-phase blueprint — tracked in real time, updated weekly, built for complete investor confidence.",
+    "status": {
+      "done": "Completed",
+      "active": "In Progress",
+      "planned": "Planned",
+      "activeNow": "Active now",
+      "next": "Next",
+      "future": "Future",
+      "milestones": "milestones",
+      "of": "of",
+      "doneSuffix": "done"
+    },
+    "phase-1": {
+      "name": "Core Operations",
+      "tag": "Phase 1",
+      "desc": "This phase establishes foundational capabilities enabling revenue generation while subsequent phases progress.",
+      "overviewDesc": "Foundational capabilities — site, legal, engineering, and solar systems.",
+      "items": {
+        "m1-1": "Site acquisition and legal documentation",
+        "m1-2": "Environmental impact assessment and regulatory approvals",
+        "m1-3": "Site preparation and grading",
+        "m1-4": "Detailed engineering and architectural designs",
+        "m1-5": "Foundation construction for primary buildings",
+        "m1-6": "Primary processing equipment installation",
+        "m1-7": "Dehydration systems commissioning",
+        "m1-8": "Establishing solar system",
+        "m1-9": "Basic quality control capabilities",
+        "m1-10": "Initial product line launches",
+        "m1-11": "Domestic market entry"
+      }
+    },
+    "phase-2": {
+      "name": "Capacity Expansion",
+      "tag": "Phase 2",
+      "desc": "Phase 2 expands capacity in response to market traction and demand growth from Phase 1 operations.",
+      "overviewDesc": "Scale production lines, lab upgrades, and export market development.",
+      "items": {
+        "m2-1": "Additional processing lines",
+        "m2-2": "Expanded dehydration capacity",
+        "m2-3": "Vegetarian sausage production full commissioning",
+        "m2-4": "Enhanced quality control laboratory",
+        "m2-5": "Export market development"
+      }
+    },
+    "phase-3": {
+      "name": "Diversification and Optimization",
+      "tag": "Phase 3",
+      "desc": "Phase 3 optimizes operations and captures opportunities identified during earlier phases.",
+      "overviewDesc": "New product lines, automation, advanced certifications, global markets.",
+      "items": {
+        "m3-1": "New product line additions",
+        "m3-2": "Process automation enhancements",
+        "m3-3": "Advanced certification achievements",
+        "m3-4": "Market penetration in priority export markets",
+        "m3-5": "Operational efficiency improvements"
+      }
+    }
+  },
+  "partners": {
+    "badge": "STAKEHOLDERS",
+    "title1": "Our Stakeholders & ",
+    "titleHighlight": "Strategic Partners",
+    "subtitle": "At the Solar Food Project, our mission is to redefine the intersection of technology and nature — pioneering a new era of investment where green energy and sustainable agrotechnology are completely vertically integrated. From seed to solar canopy to final consumer product, we ensure total food safety and unparalleled operational efficiency. By investing in our ecosystem, you are funding a blueprint for the future of global food security.",
+    "roles": {
+      "newtech": "Founder / Concept Designer / Planner / Renewable Energy",
+      "csh": "Renewable Energy, BOI Supplier",
+      "nkceylon": "Food Production & Marketing",
+      "wattsoft": "Technical Solution Provider (Software & IoT)"
+    }
+  },
+  "contact": {
+    "badge": "CONTACT US",
+    "title1": "Partner With the ",
+    "titleHighlight": "Future",
+    "subtitle": "Get in touch with our executive team for investment opportunities and technical deep dives.",
+    "cards": {
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "hours": "Business Hours",
+      "addressValue": "Medawachchiya, Sri Lanka",
+      "hoursValue": "Mon – Fri, 9 AM – 5 PM"
+    },
+    "form": {
+      "title": "Send us a Message",
+      "nameLabel": "Full Name",
+      "namePlaceholder": "John Doe",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "john@company.com",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "+94 77 000 0000",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell us about your investment interest…",
+      "success": "Message sent! We'll get back to you soon.",
+      "error": "Please fill in all required fields and try again.",
+      "sending": "Sending…",
+      "sendMsg": "Send Message"
+    }
+  },
+  "footer": {
+    "desc": "Pioneering the future of sustainable agrotechnology through vertically integrated green energy and premium food production.",
+    "quickLinks": "Quick Links",
+    "connect": "Connect With Us",
+    "rights": "WATTSOFT . All rights reserved.",
+    "backToTop": "Back to top"
+  }
+}
