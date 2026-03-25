@@ -12,7 +12,7 @@ export const LanguageSwitcher = () => {
   const isSi = i18n.language?.startsWith('si');
 
   return (
-    <div className="fixed top-24 right-4 lg:top-6 lg:right-6 z-[100]">
+    <div className="fixed bottom-6 right-4 lg:bottom-auto lg:top-6 lg:right-6 z-[100]">
       <button
         onClick={toggleLanguage}
         className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/80 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.12)] transition-all border border-earth-dark/10 cursor-pointer group"
