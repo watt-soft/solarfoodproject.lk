@@ -9,7 +9,7 @@ export const partners = [
     name: 'New Tech Solution Mawanella Pvt. Ltd',
     role: 'Founder / Concept Designer / Planner / Renewable Energy',
     logo: newtechLogo,
-    url: '#',
+    url: 'https://newtechsolution.co/',
     style: {
       shadow: 'hover:shadow-[0_12px_44px_rgba(26,107,60,0.15)]',
       borderMain: 'hover:border-[#1A6B3C]/30',
@@ -48,7 +48,7 @@ export const partners = [
     name: 'Wattsoft',
     role: 'Technical Solution Provider (Software & IoT)',
     logo: wattsoftLogo,
-    url: '#',
+    url: 'https://wattsoft.lk/',
     style: {
       shadow: 'hover:shadow-[0_12px_44px_rgba(244,84,39,0.15)]',
       borderMain: 'hover:border-[#f45427]/30',

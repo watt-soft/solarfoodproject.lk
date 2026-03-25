@@ -5,8 +5,9 @@
 // Layout order: Header → PhaseCards strip → Stat chips → Accordion
 // ─────────────────────────────────────────────────────────────────
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   CheckCircle2, Circle, PlayCircle, ChevronDown,
   Clock, 
@@ -38,11 +39,7 @@ const fadeUp = {
   }),
 };
 
-const expandVariants = {
-  hidden: { height: 0, opacity: 0 },
-  visible: { height: 'auto', opacity: 1, transition: { duration: 0.4, ease: 'easeInOut' as const } },
-  exit: { height: 0, opacity: 0, transition: { duration: 0.3, ease: 'easeInOut' as const } },
-};
+
 
 const stagger = {
   hidden: {},
@@ -132,45 +129,49 @@ const PHASE_CARDS: PhaseCardItem[] = [
 // ─────────────────────────────────────────────────────────────────
 // PHASE ARROW
 // ─────────────────────────────────────────────────────────────────
-const PhaseArrow = ({ active, index }: { active: boolean; index: number }) => (
-  <div className="flex-shrink-0 w-11 hidden sm:flex flex-col items-center gap-1.5">
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: 0.55 + index * 0.14 }}
-      className="flex items-center"
-    >
-      {/* Line with shimmer */}
-      <div className={`relative w-6 h-[1.5px] overflow-hidden ${active ? 'bg-emerald-200' : 'bg-slate-200'}`}>
-        <motion.span
-          className={`absolute inset-y-0 w-full ${active
-              ? 'bg-gradient-to-r from-transparent via-emerald-400 to-transparent'
-              : 'bg-gradient-to-r from-transparent via-slate-300 to-transparent'
-            }`}
-          animate={{ x: ['-100%', '200%'] }}
-          transition={{ repeat: Infinity, duration: active ? 2 : 3, ease: 'linear' }}
-        />
-      </div>
-      {/* Arrowhead */}
-      <div className="w-0 h-0" style={{
-        borderTop: '5px solid transparent',
-        borderBottom: '5px solid transparent',
-        borderLeft: `7px solid ${active ? '#22c55e' : '#94a3b8'}`,
-        opacity: active ? 0.9 : 0.45,
-      }} />
-    </motion.div>
-    <span className={`text-[8px] font-bold tracking-[0.12em] uppercase ${active ? 'text-emerald-400' : 'text-slate-300'}`}>
-      {active ? 'Next' : 'Future'}
-    </span>
-  </div>
-);
+const PhaseArrow = ({ active, index }: { active: boolean; index: number }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="flex-shrink-0 w-11 hidden sm:flex flex-col items-center gap-1.5">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.55 + index * 0.14 }}
+        className="flex items-center"
+      >
+        {/* Line with shimmer */}
+        <div className={`relative w-6 h-[1.5px] overflow-hidden ${active ? 'bg-emerald-200' : 'bg-slate-200'}`}>
+          <motion.span
+            className={`absolute inset-y-0 w-full ${active
+                ? 'bg-gradient-to-r from-transparent via-emerald-400 to-transparent'
+                : 'bg-gradient-to-r from-transparent via-slate-300 to-transparent'
+              }`}
+            animate={{ x: ['-100%', '200%'] }}
+            transition={{ repeat: Infinity, duration: active ? 2 : 3, ease: 'linear' }}
+          />
+        </div>
+        {/* Arrowhead */}
+        <div className="w-0 h-0" style={{
+          borderTop: '5px solid transparent',
+          borderBottom: '5px solid transparent',
+          borderLeft: `7px solid ${active ? '#22c55e' : '#94a3b8'}`,
+          opacity: active ? 0.9 : 0.45,
+        }} />
+      </motion.div>
+      <span className={`text-[8px] font-bold tracking-[0.12em] uppercase ${active ? 'text-emerald-400' : 'text-slate-300'}`}>
+        {active ? t('milestones.status.next') : t('milestones.status.future')}
+      </span>
+    </div>
+  );
+};
 
 // ─────────────────────────────────────────────────────────────────
 // PHASE OVERVIEW CARD (the 3 cards at top)
 // ─────────────────────────────────────────────────────────────────
 const PhaseOverviewCard = ({ card, index, onClick }: { card: PhaseCardItem; index: number; onClick?: () => void }) => {
-  const t = phaseTheme[card.theme];
+  const tTheme = phaseTheme[card.theme];
+  const { t } = useTranslation();
   return (
     <motion.div
       variants={cardVariant}
@@ -181,7 +182,7 @@ const PhaseOverviewCard = ({ card, index, onClick }: { card: PhaseCardItem; inde
         bg-white/80 backdrop-blur-2xl
         border border-white/90 rounded-[22px]
         overflow-hidden shadow-sm ${onClick ? 'cursor-pointer' : 'cursor-default'}
-        transition-all duration-300 ${t.hover}
+        transition-all duration-300 ${tTheme.hover}
       `}
       whileHover={{ y: -7, scale: 1.018 }}
       transition={{ duration: 0.26, ease }}
@@ -190,13 +191,13 @@ const PhaseOverviewCard = ({ card, index, onClick }: { card: PhaseCardItem; inde
       <motion.div
         variants={stripVariant}
         custom={index}
-        className={`absolute top-0 left-0 right-0 h-[3px] origin-left bg-gradient-to-r ${t.strip}`}
+        className={`absolute top-0 left-0 right-0 h-[3px] origin-left bg-gradient-to-r ${tTheme.strip}`}
       />
 
       {/* Inner corner glow */}
       <div
         className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300 pointer-events-none"
-        style={{ background: `radial-gradient(circle, ${t.glow}, transparent)`, filter: 'blur(32px)', transform: 'translate(30%,-30%)' }}
+        style={{ background: `radial-gradient(circle, ${tTheme.glow}, transparent)`, filter: 'blur(32px)', transform: 'translate(30%,-30%)' }}
       />
 
       <div className="relative p-[22px] pt-6">
@@ -206,34 +207,34 @@ const PhaseOverviewCard = ({ card, index, onClick }: { card: PhaseCardItem; inde
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 + index * 0.14 }}
-          className={`absolute top-[18px] right-[18px] text-[9px] font-extrabold tracking-[0.14em] uppercase px-[11px] py-[4px] rounded-full ${t.badge}`}
+          className={`absolute top-[18px] right-[18px] text-[9px] font-extrabold tracking-[0.14em] uppercase px-[11px] py-[4px] rounded-full ${tTheme.badge}`}
         >
-          {card.num}
+          {t(`milestones.phase-${index + 1}.tag`)}
         </motion.span>
 
         {/* Icon box */}
         <motion.div
           variants={iconVariant}
           custom={index}
-          className={`relative w-[52px] h-[52px] rounded-[15px] flex items-center justify-center mb-4 ${t.iconBox}`}
+          className={`relative w-[52px] h-[52px] rounded-[15px] flex items-center justify-center mb-4 ${tTheme.iconBox}`}
         >
           <motion.span
             className="absolute inset-[-5px] rounded-[20px] border-[1.5px] opacity-0"
-            style={{ borderColor: t.iconColor }}
+            style={{ borderColor: tTheme.iconColor }}
             animate={{ opacity: [0, 0.45, 0], scale: [1, 1.09, 1] }}
             transition={{ repeat: Infinity, duration: 3.2, delay: index * 1.1 }}
           />
-          <card.Icon size={22} color={t.iconColor} />
+          <card.Icon size={22} color={tTheme.iconColor} />
         </motion.div>
 
         {/* Text */}
         <motion.h3 variants={fadeUp} custom={index + 0.1}
           className="text-[17px] font-extrabold tracking-[-0.02em] leading-[1.22] text-slate-900 mb-2">
-          {card.title}
+          {t(`milestones.phase-${index + 1}.name`)}
         </motion.h3>
         <motion.p variants={fadeUp} custom={index + 0.2}
           className="text-[12px] text-slate-500 leading-[1.65]">
-          {card.desc}
+          {t(`milestones.phase-${index + 1}.overviewDesc`)}
         </motion.p>
       </div>
     </motion.div>
@@ -271,24 +272,24 @@ const ProgressRing = ({ pct, size = 52, stroke = 4, color = T.primary }: {
 type TagClass = MilestoneItem['tagClass'];
 
 const statusConfig: Record<TagClass, {
-  label: string;
+  labelKey: string;
   Icon: React.FC<{ className?: string }>;
   itemBg: string; itemBorder: string; badge: string; dot: string;
 }> = {
   done: {
-    label: 'Completed',
+    labelKey: 'done',
     Icon: ({ className }) => <CheckCircle2 className={className} />,
     itemBg: 'bg-emerald-50/80', itemBorder: 'border-emerald-200/60',
     badge: 'bg-emerald-100 text-emerald-700', dot: 'bg-emerald-500',
   },
   active: {
-    label: 'In Progress',
+    labelKey: 'active',
     Icon: ({ className }) => <PlayCircle className={className} />,
     itemBg: 'bg-amber-50/80', itemBorder: 'border-amber-200/60',
     badge: 'bg-amber-100 text-amber-700', dot: 'bg-amber-500',
   },
   planned: {
-    label: 'Planned',
+    labelKey: 'planned',
     Icon: ({ className }) => <Circle className={className} />,
     itemBg: 'bg-white', itemBorder: 'border-slate-100',
     badge: 'bg-slate-100 text-slate-500', dot: 'bg-slate-300',
@@ -298,8 +299,10 @@ const statusConfig: Record<TagClass, {
 // ─────────────────────────────────────────────────────────────────
 // MILESTONE LIST ITEM
 // ─────────────────────────────────────────────────────────────────
-const MilestoneListItem = ({ item, index }: { item: MilestoneItem; index: number }) => {
+const MilestoneListItem = ({ item, index, phaseId }: { item: MilestoneItem; index: number; phaseId: string }) => {
   const cfg = statusConfig[item.tagClass];
+  const { t } = useTranslation();
+
   return (
     <motion.li
       variants={fadeUp}
@@ -318,14 +321,14 @@ const MilestoneListItem = ({ item, index }: { item: MilestoneItem; index: number
       <div className="flex-1 min-w-0">
         <p className={`text-sm font-semibold leading-snug ${item.tagClass === 'planned' ? 'text-slate-400' : 'text-slate-800'
           }`}>
-          {item.title}
+          {t(`milestones.${phaseId}.items.${item.id}`)}
         </p>
         <div className="mt-2 flex items-center gap-2 flex-wrap">
           <span className={`inline-flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full ${cfg.badge}`}>
             {item.tagClass === 'active' && (
               <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot} animate-pulse`} />
             )}
-            {cfg.label}
+            {t(`milestones.status.${cfg.labelKey}`)}
           </span>
           {item.date && (
             <span className="inline-flex items-center gap-1 text-[10px] text-slate-400 font-medium">
@@ -347,6 +350,7 @@ const AccordionPhaseCard = ({
   phase: (typeof phases)[0];
   isOpen: boolean; onClick: () => void; index: number;
 }) => {
+  const { t } = useTranslation();
   const doneCount = phase.items.filter(i => i.tagClass === 'done').length;
   const activeCount = phase.items.filter(i => i.tagClass === 'active').length;
   const total = phase.items.length;
@@ -393,15 +397,15 @@ const AccordionPhaseCard = ({
               {activeCount > 0 && (
                 <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-wide uppercase px-2.5 py-1 rounded-full bg-amber-100 text-amber-700">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                  Active now
+                  {t('milestones.status.activeNow')}
                 </span>
               )}
             </div>
             <h3 className={`text-xl md:text-2xl font-bold leading-tight transition-colors duration-200 ${isOpen ? 'text-emerald-700' : 'text-slate-800 group-hover:text-emerald-700'
               }`}>
-              {phase.name}
+              {t(`milestones.${phase.id}.name`)}
             </h3>
-            <p className="text-sm text-slate-500 leading-relaxed mt-2 max-w-2xl">{phase.desc}</p>
+            <p className="text-sm text-slate-500 leading-relaxed mt-2 max-w-2xl">{t(`milestones.${phase.id}.desc`)}</p>
           </div>
 
           {/* Right */}
@@ -410,7 +414,7 @@ const AccordionPhaseCard = ({
               <div className="text-center">
                 <div className="text-3xl font-bold leading-none text-emerald-600">{doneCount}</div>
                 <div className="text-[9px] font-bold tracking-widest uppercase text-slate-400 mt-1">
-                  of {total}<br />done
+                  {t('milestones.status.of')} {total}<br />{t('milestones.status.doneSuffix')}
                 </div>
               </div>
             </div>
@@ -444,58 +448,56 @@ const AccordionPhaseCard = ({
         )}
       </button>
 
-      {/* Expandable body */}
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            key="body"
-            variants={expandVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="overflow-hidden"
+      {/* Expandable body — CSS grid-based, always in DOM, no layout shift */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: isOpen ? '1fr' : '0fr',
+          transition: 'grid-template-rows 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        }}
+      >
+        <div style={{ overflow: 'hidden' }}>
+          <div
+            className="px-6 pb-8 md:px-8 border-t border-slate-100 pt-6"
+            style={{
+              opacity: isOpen ? 1 : 0,
+              transition: 'opacity 0.4s ease',
+              transitionDelay: isOpen ? '0.2s' : '0s',
+            }}
           >
-            <div className="px-6 pb-8 md:px-8 border-t border-slate-100 pt-6">
-              {/* Summary strip */}
-              <div className="flex items-center gap-4 mb-6 flex-wrap">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-                  {total} milestones
-                </span>
-                <div className="flex items-center gap-3">
-                  {doneCount > 0 && (
-                    <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
-                      <CheckCircle2 size={12} /> {doneCount} done
-                    </span>
-                  )}
-                  {activeCount > 0 && (
-                    <span className="flex items-center gap-1.5 text-xs font-semibold text-amber-600">
-                      <PlayCircle size={12} /> {activeCount} active
-                    </span>
-                  )}
-                  {total - doneCount - activeCount > 0 && (
-                    <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-400">
-                      <Circle size={12} /> {total - doneCount - activeCount} planned
-                    </span>
-                  )}
-                </div>
+            {/* Summary strip */}
+            <div className="flex items-center gap-4 mb-6 flex-wrap">
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
+                {total} {t('milestones.status.milestones')}
+              </span>
+              <div className="flex items-center gap-3">
+                {doneCount > 0 && (
+                  <span className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+                    <CheckCircle2 size={12} /> {doneCount} {t('milestones.status.doneSuffix')}
+                  </span>
+                )}
+                {activeCount > 0 && (
+                  <span className="flex items-center gap-1.5 text-xs font-semibold text-amber-600">
+                    <PlayCircle size={12} /> {activeCount} {t('milestones.status.active')}
+                  </span>
+                )}
+                {total - doneCount - activeCount > 0 && (
+                  <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-400">
+                    <Circle size={12} /> {total - doneCount - activeCount} {t('milestones.status.planned')}
+                  </span>
+                )}
               </div>
-
-              {/* Milestone grid */}
-              <motion.ul
-                variants={stagger}
-                initial="hidden"
-                animate="visible"
-                className="grid grid-cols-1 lg:grid-cols-2 gap-3"
-              >
-                {phase.items.map((item, idx) => (
-                  <MilestoneListItem key={item.id} item={item} index={idx} />
-                ))}
-              </motion.ul>
-
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+            {/* Milestone grid */}
+            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              {phase.items.map((item, idx) => (
+                <MilestoneListItem key={item.id} item={item} index={idx} phaseId={phase.id} />
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 };
@@ -504,17 +506,29 @@ const AccordionPhaseCard = ({
 // MAIN EXPORT
 // ─────────────────────────────────────────────────────────────────
 export const Milestones = () => {
-  const [openPhaseIds, setOpenPhaseIds] = useState<string[]>(
-    phases[0] ? [phases[0].id] : []
-  );
+  const { t } = useTranslation();
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [openPhaseId, setOpenPhaseId] = useState<string | null>('all');
 
+  // Click toggles the accordion on/off
   const togglePhase = (id: string) =>
-    setOpenPhaseIds(prev =>
-      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
-    );
+    setOpenPhaseId(prev => (prev === id ? null : id));
+
+  // Hover: exclusive switch — only ONE phase open at a time
+  const handleMouseEnter = (id: string) => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => {
+      setOpenPhaseId(id);
+    }, 150);
+  };
+
+  const handleMouseLeave = (_id: string) => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    // Don't close on leave — keep current open until user hovers another
+  };
 
   return (
-    <section id="transparency" className="relative pt-8 pb-24 md:pt-12 md:pb-32 overflow-hidden bg-slate-50 scroll-mt-28">
+    <section id="transparency" className="relative pt-8 pb-24 md:pt-12 md:pb-32 bg-slate-50 scroll-mt-28">
 
       {/* Ambient blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
@@ -542,20 +556,19 @@ export const Milestones = () => {
           <motion.div variants={fadeUp} className="mb-5 flex justify-center">
             <span className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-emerald-700 bg-white border border-emerald-200 shadow-sm px-4 py-2 rounded-full">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
-              Investor Transparency
+              {t('milestones.badge')}
             </span>
           </motion.div>
 
           <motion.h2 variants={fadeUp} custom={1}
             className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 mb-5 leading-[1.08] tracking-tight">
-            Phased Implementation{' '}
-            <em className="not-italic" style={{ color: T.primary }}>Strategy</em>
+            {t('milestones.title1')}{' '}
+            <em className="not-italic" style={{ color: T.primary }}>{t('milestones.titleHighlight')}</em>
           </motion.h2>
 
           <motion.p variants={fadeUp} custom={2}
             className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            A structured three-phase blueprint — tracked in real time, updated weekly,
-            built for complete investor confidence.
+            {t('milestones.subtitle')}
           </motion.p>
         </motion.div>
 
@@ -570,9 +583,7 @@ export const Milestones = () => {
             <div key={card.num} className="contents lg:flex items-center w-full lg:w-auto">
               <PhaseOverviewCard card={card} index={i} onClick={() => {
                 const phaseId = `phase-${i + 1}`;
-                if (!openPhaseIds.includes(phaseId)) {
-                  togglePhase(phaseId);
-                }
+                setOpenPhaseId(prev => prev === phaseId ? null : phaseId);
                 setTimeout(() => {
                   document.getElementById(phaseId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 50);
@@ -586,11 +597,16 @@ export const Milestones = () => {
         {/* ── 4. ACCORDION ── */}
         <div className="flex flex-col gap-4">
           {phases.map((phase, index) => (
-            <div key={phase.id} id={phase.id}>
+            <div 
+              key={phase.id} 
+              id={phase.id}
+              onMouseEnter={() => handleMouseEnter(phase.id)}
+              onMouseLeave={() => handleMouseLeave(phase.id)}
+            >
               <AccordionPhaseCard
                 phase={phase}
                 index={index}
-                isOpen={openPhaseIds.includes(phase.id)}
+                isOpen={openPhaseId === 'all' || openPhaseId === phase.id}
                 onClick={() => togglePhase(phase.id)}
               />
             </div>

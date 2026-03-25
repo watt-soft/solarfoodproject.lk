@@ -1,8 +1,10 @@
+import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { visionItems } from '../data/visionData';
 import type { VisionItem } from '../types';
 import { FiCheckCircle } from 'react-icons/fi';
-import { Briefcase, Sun } from 'lucide-react';
+import { Briefcase, Sun, BatteryCharging } from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────────
 // ICONS
@@ -22,12 +24,6 @@ const DehydrationIcon = ({ size = 24, color = "currentColor" }) => (
   </svg>
 );
 
-const MushroomIcon = ({ size = 24, color = "currentColor" }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 12A8 8 0 0 0 4 12h16Z" />
-    <path d="M10 12v6a2 2 0 0 0 4 0v-6" />
-  </svg>
-);
 
 // ─────────────────────────────────────────────────────────────────
 // ANIMATION VARIANTS & THEME
@@ -95,20 +91,6 @@ type VisionThemeKey = keyof typeof visionTheme;
 // ─────────────────────────────────────────────────────────────────
 const VISION_OVERVIEW_CARDS = [
   {
-    id: 'dehydration',
-    title: 'Multilevel Dehydration Complex',
-    desc: 'Heavy-duty facility for maximum shelf-life, nutrient retention and zero-emission processing.',
-    theme: 'green' as VisionThemeKey,
-    Icon: DehydrationIcon
-  },
-  {
-    id: 'mushrooms',
-    title: 'Mushroom Cultivation Hub',
-    desc: 'Climate-controlled greenhouse ecosystems for premium organic fungi yields.',
-    theme: 'green' as VisionThemeKey,
-    Icon: MushroomIcon
-  },
-  {
     id: 'integration',
     title: 'Vertical Integration (The Factory)',
     desc: 'End-to-end pipeline from raw harvest to premium market-ready goods.',
@@ -118,9 +100,23 @@ const VISION_OVERVIEW_CARDS = [
   {
     id: 'solar',
     title: 'Agrisolar / Agrivoltaics',
-    desc: 'Dual-use solar canopies powering the full 7-acre complex while growing crops below.',
+    desc: 'Dual-use solar greenhouses powering the full 7-acre complex while growing crops below.',
     theme: 'green' as VisionThemeKey,
     Icon: Sun
+  },
+  {
+    id: 'dehydration',
+    title: 'Multilevel Dehydration Complex',
+    desc: 'Heavy-duty facility for maximum shelf-life, nutrient retention and zero-emission processing.',
+    theme: 'green' as VisionThemeKey,
+    Icon: DehydrationIcon
+  },
+  {
+    id: 'battery',
+    title: 'Solar Battery Backup System',
+    desc: 'Store energy and fuel the national grid at night when demand is high.',
+    theme: 'green' as VisionThemeKey,
+    Icon: BatteryCharging
   }
 ];
 
@@ -159,40 +155,41 @@ const VisionArrow = ({ label, index }: { label: string; index: number }) => {
 };
 
 const VisionOverviewCard = ({ card, index, onClick }: { card: typeof VISION_OVERVIEW_CARDS[0]; index: number; onClick: () => void }) => {
-  const t = visionTheme[card.theme];
+  const th = visionTheme[card.theme];
+  const { t } = useTranslation();
   return (
     <motion.div
       variants={cardVariant}
       custom={index}
       onClick={onClick}
       className={`
-        group relative flex-1 min-w-0 w-full lg:w-auto h-full p-1
+        group relative flex-1 self-stretch min-w-0 w-full lg:w-auto p-1
         bg-white/80 backdrop-blur-2xl
         border border-white/90 rounded-[24px]
         overflow-hidden shadow-sm cursor-pointer
-        transition-all duration-300 ${t.hover} flex flex-col items-center lg:items-start text-center lg:text-left
+        transition-all duration-300 ${th.hover} flex flex-col items-center lg:items-start text-center lg:text-left
       `}
       whileHover={{ y: -7, scale: 1.018 }}
       transition={{ duration: 0.26, ease }}
     >
-      <motion.div variants={stripVariant} custom={index} className={`absolute top-0 left-0 right-0 h-[3px] origin-left bg-gradient-to-r ${t.strip}`} />
+      <motion.div variants={stripVariant} custom={index} className={`absolute top-0 left-0 right-0 h-[3px] origin-left bg-gradient-to-r ${th.strip}`} />
       <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300 pointer-events-none"
-        style={{ background: `radial-gradient(circle, ${t.glow}, transparent)`, filter: 'blur(32px)', transform: 'translate(30%,-30%)' }} />
+        style={{ background: `radial-gradient(circle, ${th.glow}, transparent)`, filter: 'blur(32px)', transform: 'translate(30%,-30%)' }} />
 
       <div className="relative p-6 pt-7 lg:p-7 flex-1 flex flex-col justify-start w-full">
-        <motion.div variants={iconVariant} custom={index} className={`relative w-[52px] h-[52px] rounded-[16px] flex items-center justify-center shrink-0 mb-5 mx-auto lg:mx-0 ${t.iconBox}`}>
+        <motion.div variants={iconVariant} custom={index} className={`relative w-[52px] h-[52px] rounded-[16px] flex items-center justify-center shrink-0 mb-5 mx-auto lg:mx-0 ${th.iconBox}`}>
           <motion.span className="absolute inset-[-6px] rounded-[22px] border-[1.5px] opacity-0"
-            style={{ borderColor: t.iconColor }}
+            style={{ borderColor: th.iconColor }}
             animate={{ opacity: [0, 0.45, 0], scale: [1, 1.09, 1] }}
             transition={{ repeat: Infinity, duration: 3.2, delay: index * 1.1 }} />
-          <card.Icon size={24} color={t.iconColor} />
+          <card.Icon size={24} color={th.iconColor} />
         </motion.div>
 
         <motion.h3 variants={fadeUp} custom={index + 0.1} className="text-[17px] sm:text-lg font-extrabold tracking-[-0.02em] leading-[1.2] text-slate-900 mb-3">
-          {card.title}
+          {t(`vision.overview.${card.id}.title`)}
         </motion.h3>
         <motion.p variants={fadeUp} custom={index + 0.2} className="text-[13px] text-slate-500 leading-relaxed font-medium">
-          {card.desc}
+          {t(`vision.overview.${card.id}.desc`)}
         </motion.p>
       </div>
     </motion.div>
@@ -204,6 +201,8 @@ const VisionOverviewCard = ({ card, index, onClick }: { card: typeof VISION_OVER
 // ─────────────────────────────────────────────────────────────────
 const VisionCard = ({ item, index }: { item: VisionItem; index: number }) => {
   const isEven = index % 2 === 0;
+  const { t } = useTranslation();
+  const bullets = t(`vision.items.${item.id}.bullets`, { returnObjects: true }) as string[];
 
   return (
     <motion.div
@@ -217,13 +216,13 @@ const VisionCard = ({ item, index }: { item: VisionItem; index: number }) => {
       {/* Content Side */}
       <div className="w-full lg:w-[70%] z-10">
         <div className="flex items-center gap-4 mb-4">
-          <h3 className="text-3xl font-display font-semibold text-earth-dark">{item.title}</h3>
+          <h3 className="text-3xl font-display font-semibold text-earth-dark">{t(`vision.items.${item.id}.title`)}</h3>
         </div>
         <p className="text-lg text-text-secondary mb-6 leading-relaxed">
-          {item.description}
+          {t(`vision.items.${item.id}.description`)}
         </p>
         <ul className="space-y-3">
-          {item.bullets.map((bullet, idx) => (
+          {Array.isArray(bullets) && bullets.map((bullet, idx) => (
             <motion.li
               key={idx}
               initial={{ opacity: 0, x: -10 }}
@@ -257,6 +256,8 @@ const VisionCard = ({ item, index }: { item: VisionItem; index: number }) => {
 // MAIN SECTION
 // ─────────────────────────────────────────────────────────────────
 export const VisionList = () => {
+  const { t } = useTranslation();
+
   return (
     <section id="vision" className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -271,14 +272,14 @@ export const VisionList = () => {
           <motion.div variants={fadeUp} className="mb-5 flex justify-center">
             <span className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-emerald-700 bg-white border border-emerald-200 shadow-sm px-4 py-2 rounded-full">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
-              A 7-Acre Blueprint
+              {t('vision.badge')}
             </span>
           </motion.div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-slate-900 mb-5 leading-[1.08] tracking-tight">
-            The Master <span className="text-[#1A6B3C]">Plan</span>
+            {t('vision.title1')} <span className="text-[#1A6B3C]">{t('vision.titleHighlight')}</span>
           </h2>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            A structurally integrated ecosystem maximizing agricultural yield and renewable energy.
+            {t('vision.subtitle')}
           </p>
         </motion.div>
 
@@ -292,7 +293,7 @@ export const VisionList = () => {
           {VISION_OVERVIEW_CARDS.map((card, i) => {
             const label = 'NEXT';
             return (
-              <div key={card.id} className="contents lg:flex items-center flex-1">
+              <React.Fragment key={card.id}>
                 <VisionOverviewCard
                   card={card}
                   index={i}
@@ -300,8 +301,12 @@ export const VisionList = () => {
                     document.getElementById(`vision-${card.id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   }}
                 />
-                {i < VISION_OVERVIEW_CARDS.length - 1 && <VisionArrow label={label} index={i} />}
-              </div>
+                {i < VISION_OVERVIEW_CARDS.length - 1 && (
+                  <div className="hidden lg:flex self-center items-center justify-center">
+                    <VisionArrow label={label} index={i} />
+                  </div>
+                )}
+              </React.Fragment>
             );
           })}
         </motion.div>
